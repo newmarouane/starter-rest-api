@@ -21,6 +21,15 @@ app.use(express.urlencoded({ extended: true }))
 // app.use(express.static('public', options))
 // #############################################################################
 
+
+// Get jobs list
+app.get('/api/jobs', async (req, res) => {
+  console.log(`fetch jobs list`)
+  let rawdata = fs.readFileSync('api.json');
+  let jobs = JSON.parse(rawdata);
+  res.json(jobs).end()
+})
+
 // Create or Update an item
 app.post('/:col/:key', async (req, res) => {
   console.log(req.body)
@@ -62,13 +71,6 @@ app.get('/:col', async (req, res) => {
   res.json(items).end()
 })
 
-// Get jobs list
-app.get('/api/jobs', async (req, res) => {
-  console.log(`fetch jobs list`)
-  let rawdata = fs.readFileSync('api.json');
-  let jobs = JSON.parse(rawdata);
-  res.json(jobs).end()
-})
 
 // Catch all handler for all other request.
 app.use('*', (req, res) => {
