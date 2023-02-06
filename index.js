@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const db = require('@cyclic.sh/dynamodb')
 
+const fs = require('fs');
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -58,6 +60,14 @@ app.get('/:col', async (req, res) => {
   const items = await db.collection(col).list()
   console.log(JSON.stringify(items, null, 2))
   res.json(items).end()
+})
+
+// Get jobs list
+app.get('/api/jobs', async (req, res) => {
+  console.log(`fetch jobs list`)
+  let rawdata = fs.readFileSync('api.json');
+  let jobs = JSON.parse(rawdata);
+  res.json(jobs).end()
 })
 
 // Catch all handler for all other request.
