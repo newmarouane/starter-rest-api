@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const db = require('@cyclic.sh/dynamodb')
+import { test } from '@playwright/test';
 
 const fs = require('fs');
 
@@ -27,7 +28,23 @@ app.get('/api/jobs', async (req, res) => {
   console.log(`fetch jobs list`)
   let rawdata = fs.readFileSync('api.json');
   let jobs = JSON.parse(rawdata);
-  res.json(jobs).end()
+  
+  
+test('Evaluate in browser context', async ({ page }) => {
+  await page.goto('https://www.npmjs.com/');
+  const dimensions = await page.evaluate(() => {
+    return {
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight,
+      deviceScaleFactor: window.devicePixelRatio
+    }
+  });
+  console.log(dimensions);
+  res.json({dimension":dimensions}).end();
+});
+  
+  
+  //res.json(jobs).end()
 })
 
 // Create or Update an item
