@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 
 const fs = require('fs');
+const puppeteer = require('puppeteer');
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -30,6 +32,20 @@ app.get('/api/jobs', async (req, res) => {
  
   
    res.json(jobs).end()
+})
+
+app.get('/api/puppeteer', async (req, res) => {
+  console.log(`fetch site title`)
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+  await page.goto('https://www.google.com/')
+  const title = await page.title()
+  console.log(title)
+  await browser.close()
+  
+ 
+  
+   res.json({"title":title}).end();
 })
 
 // Create or Update an item
