@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const db = require('@cyclic.sh/dynamodb')
-import { test } from '@playwright/test';
 
 const fs = require('fs');
 
@@ -29,20 +28,18 @@ app.get('/api/jobs', async (req, res) => {
   let rawdata = fs.readFileSync('api.json');
   let jobs = JSON.parse(rawdata);
   
-  
-test('Evaluate in browser context', async ({ page }) => {
-  await page.goto('https://www.npmjs.com/');
-  const dimensions = await page.evaluate(() => {
-    return {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight,
-      deviceScaleFactor: window.devicePixelRatio
-    }
-  });
-  console.log(dimensions);
-  res.json({dimension":dimensions}).end();
+  var casper = require("casper").create();
+var nbLinks = 0;
+var currentLink = 1;
+var images = [];
+var buildPage, next;
+casper.start("http://www.bbc.co.uk/", function() {
+    nbLinks = this.evaluate(function() {
+        return __utils__.findAll('#promo2_carousel_items_items li').length;
+    });
+    console.log(nbLinks + " items founds");
+  res.json({"links":nbLinks}).end()
 });
-  
   
   //res.json(jobs).end()
 })
