@@ -39,13 +39,20 @@ app.get('/api/puppeteer', async (req, res) => {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
   await page.goto('https://jobviewtrack.com/fr-fr/job-194a416e4209020b5517490204413da4cc4411061d124359582f6e0b02034206430a090d6c34a689100d07074b424f482c5256581346/82e1ef6fc3c8e10766317158c66fd2c3.html')
-  const title = await page.title()
+  const element = await page.waitForSelector('.container');
+
+  
+   res.json({"html":element.innerHTML}).end();
+  // Dispose of handle
+  await element.dispose();
+
+  // Close browser.
+  await browser.close();
   console.log(title)
   await browser.close()
   
  
   
-   res.json({"title":title}).end();
 })
 
 // Create or Update an item
