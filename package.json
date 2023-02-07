@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "env-cmd nodemon index.js",
     "repl": "env-cmd node",
-    "index": "index"
+    "index": "node index.js"
   },
   "keywords": [],
   "author": "Kam Lasater <kam.lasater@cyclic.sh>",
