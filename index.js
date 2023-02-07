@@ -28,20 +28,9 @@ app.get('/api/jobs', async (req, res) => {
   let rawdata = fs.readFileSync('api.json');
   let jobs = JSON.parse(rawdata);
   
-  var casper = require("casper").create();
-var nbLinks = 0;
-var currentLink = 1;
-var images = [];
-var buildPage, next;
-casper.start("http://www.bbc.co.uk/", function() {
-    nbLinks = this.evaluate(function() {
-        return __utils__.findAll('#promo2_carousel_items_items li').length;
-    });
-    console.log(nbLinks + " items founds");
-  res.json({"links":nbLinks}).end()
-});
+ 
   
-  //res.json(jobs).end()
+   res.json(jobs).end()
 })
 
 // Create or Update an item
