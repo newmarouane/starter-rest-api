@@ -43,12 +43,12 @@ app.get('/api/puppeteer', async (req, res) => {
 
   
    res.json({"html":element.innerHTML}).end();
+  console.log(element)
   // Dispose of handle
   await element.dispose();
 
   // Close browser.
   await browser.close();
-  console.log(title)
   await browser.close()
   
  
