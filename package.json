@@ -17,6 +17,7 @@
   "dependencies": {
     "env-cmd": "^10.1.0",
     "express": "^4.18.1",
-    "puppeteer": "19.6.3"
+    "puppeteer": "19.6.3",
+    "chromium": "3.0.3"
   }
 }
