@@ -49,7 +49,6 @@ app.get('/api/puppeteer', async (req, res) => {
 
   // Close browser.
   await browser.close();
-  await browser.close()
   
  
   
