@@ -36,14 +36,19 @@ app.get('/api/jobs', async (req, res) => {
 
 app.get('/api/puppeteer', async (req, res) => {
   console.log(`fetch site title`)
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({headless : false})
   const page = await browser.newPage()
   await page.goto('https://jobviewtrack.com/fr-fr/job-194a416e4209020b5517490204413da4cc4411061d124359582f6e0b02034206430a090d6c34a689100d07074b424f482c5256581346/82e1ef6fc3c8e10766317158c66fd2c3.html')
-  const element = await page.waitForSelector('.container');
+  const inner_html = await page.$eval('.container', element => {
+    console.log('element.innerHTML: ' + element.innerHTML);
+                                      return element.innerHTML;
+  });
+  console.log('inner_html: ' + inner_html);
+
+   res.json({"html":inner_html}).end();
+
 
   
-   res.json({"html":element.innerHTML}).end();
-  console.log(element)
   // Dispose of handle
   await element.dispose();
 
