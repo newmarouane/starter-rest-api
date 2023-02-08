@@ -43,11 +43,11 @@ app.get('/api/puppeteer', async (req, res) => {
   var url = "https://www.optioncarriere.com/jobad/fr82e1ef6fc3c8e10766317158c66fd2c3";
   //var url = "http://public.api.careerjet.net/search?locale_code=fr_fr&pagesize=2&user_ip=101.1.1.1&user_agent=a";
   await page.setDefaultNavigationTimeout(0);
-  await page.goto(url, { waitUntil: 'load' });
+  await page.goto(url);
   
   const inner_html = await page.$eval('.container', element => {
     console.log('element.innerHTML: ' + element.innerHTML);
-                                      return element.innerHTML;
+    return element.innerHTML;
   });
   console.log('inner_html: ' + inner_html);
 
