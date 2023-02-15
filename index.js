@@ -62,7 +62,18 @@ app.get('/:col', async (req, res) => {
 
 // Catch all handler for all other request.
 app.use('*', (req, res) => {
-  res.json({ msg: 'no route handler found' }).end()
+   let animals = db.collection('animals')
+
+    // create an item in collection with key "leo"
+    let leo = await animals.set('leo', {
+        type:'cat',
+        color:'orange'
+    })
+
+    // get an item at key "leo" from collection animals
+    let item = await animals.get('leo')
+    console.log(item)
+  res.json({ msg: 'no route handler found',value: item }).end()
 })
 
 // Start the server
