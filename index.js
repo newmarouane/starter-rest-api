@@ -61,7 +61,7 @@ app.get('/:col', async (req, res) => {
 })
 
 // Catch all handler for all other request.
-app.use('*', (req, res) => {
+app.use('*', async (req, res) => {
    let animals = db.collection('animals')
 
     // create an item in collection with key "leo"
