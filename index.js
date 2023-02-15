@@ -1,54 +1,72 @@
-// ./src/index.js
-// importing the dependencies
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
+const express = require('express')
+const app = express()
+const db = require('@cyclic.sh/dynamodb')
 
-const fetch = require('node-fetch');
-const puppeteer = require('puppeteer');
-// defining the Express app
-const app = express();
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-// adding Helmet to enhance your Rest API's security
-//app.use(helmet());
+// #############################################################################
+// This configures static hosting for files in /public that have the extensions
+// listed in the array.
+// var options = {
+//   dotfiles: 'ignore',
+//   etag: false,
+//   extensions: ['htm', 'html','css','js','ico','jpg','jpeg','png','svg'],
+//   index: ['index.html'],
+//   maxAge: '1m',
+//   redirect: false
+// }
+// app.use(express.static('public', options))
+// #############################################################################
 
-// using bodyParser to parse JSON bodies into JS objects
-app.use(bodyParser.json());
+// Create or Update an item
+app.post('/:col/:key', async (req, res) => {
+  console.log(req.body)
 
-// enabling CORS for all requests
-//app.use(cors());
+  const col = req.params.col
+  const key = req.params.key
+  console.log(`from collection: ${col} delete key: ${key} with params ${JSON.stringify(req.params)}`)
+  const item = await db.collection(col).set(key, req.body)
+  console.log(JSON.stringify(item, null, 2))
+  res.json(item).end()
+})
 
-// adding morgan to log HTTP requests
-app.use(morgan('combined'));
+// Delete an item
+app.delete('/:col/:key', async (req, res) => {
+  const col = req.params.col
+  const key = req.params.key
+  console.log(`from collection: ${col} delete key: ${key} with params ${JSON.stringify(req.params)}`)
+  const item = await db.collection(col).delete(key)
+  console.log(JSON.stringify(item, null, 2))
+  res.json(item).end()
+})
 
-// defining an endpoint to return all ads
-app.get('/', async(req, res)  => {
-  	const browser = await puppeteer.launch({
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
-});
-	const page = await browser.newPage();
-	await page.goto("https://jobviewtrack.com/fr-fr/job-1a13416048160c06461a440a1b041b15676206010a1c464a5a482f371fad8e17490204081da4cc21415f/abd846d5ff8abce585b15251956ee068.html?affid=0afaf0173305e4b8");
-	const jobDescription = await page.$eval('.content', el => el.innerHTML).catch((e)=> {
-		return "";
-	});	
-	const logo = await page.$eval('.container > header > img', el => el.getAttribute('src')).catch((e)=> {
-		return "";
-	});
-	var applyUrl = await page.$eval('.btn-apply', el => el.getAttribute('href')).catch((e)=> {
-		return "";
-	});
-	
-	
-	await browser.close();
+// Get a single item
+app.get('/:col/:key', async (req, res) => {
+  const col = req.params.col
+  const key = req.params.key
+  console.log(`from collection: ${col} get key: ${key} with params ${JSON.stringify(req.params)}`)
+  const item = await db.collection(col).get(key)
+  console.log(JSON.stringify(item, null, 2))
+  res.json(item).end()
+})
 
-	res.send({"jobDescription":jobDescription,"logo":logo});
-}
-);
+// Get a full listing
+app.get('/:col', async (req, res) => {
+  const col = req.params.col
+  console.log(`list collection: ${col} with params: ${JSON.stringify(req.params)}`)
+  const items = await db.collection(col).list()
+  console.log(JSON.stringify(items, null, 2))
+  res.json(items).end()
+})
 
+// Catch all handler for all other request.
+app.use('*', (req, res) => {
+  res.json({ msg: 'no route handler found' }).end()
+})
 
-// starting the server
-app.listen(3000, async() => {
-  console.log('Listening on port 3000');
-});
+// Start the server
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+  console.log(`index.js listening on ${port}`)
+})
