@@ -124,11 +124,12 @@ try {
 
 app.use('/cron', async (req, res) => {
 	var url="https://confused-talented-poet.glitch.me/";
+	print(cron.validate('*/4 * * * *'));
 	  cron.schedule('*/4 * * * *', async () => {
 	    console.log("cron executed");
 	    const response = await fetch(url);
 	  });
-	
+	 
 	res.json({ 'msg': 'OK'}).end()
 }
 	);
