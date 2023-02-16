@@ -61,6 +61,7 @@ app.get('/:col', async (req, res) => {
   res.json(items).end()
 })
 
+
 app.get('/job', async (req, res) => {
 try {
   let browser;
@@ -102,7 +103,7 @@ try {
   
   page.close();
   browser.close();
-  var items= {"jobDescription":jobDescription,"logo":logo,"applyUrl":applyUrl, "jobContract": jobContract, "jobDuration": jobDuration}
+  var items= {"jobDescription":jobDescription,"logo":logo,"applyUrl":applyUrl, "jobContract": jobContract, "jobDuration": jobDuration};
   res.json(items).end();
 }
   catch(e) {console.log(
@@ -114,7 +115,9 @@ try {
     } finally {
        // await browser.close();
     } 
-}
+});
+
+
 // Catch all handler for all other request.
 app.use('*', async (req, res) => {
    let animals = db.collection('animals')
