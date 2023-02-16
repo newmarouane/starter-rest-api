@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const db = require('@cyclic.sh/dynamodb')
 const puppeteer = require('puppeteer')
+const fetch = require("node-fetch");
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -62,6 +63,7 @@ app.get('/:col', async (req, res) => {
 })
 
 
+	
 app.get('/job', async (req, res) => {
 try {
   let browser;
@@ -138,4 +140,9 @@ app.use('*', async (req, res) => {
 const port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`index.js listening on ${port}`)
+	var url="https://confused-talented-poet.glitch.me/";
+	  cron.schedule('0 */4 * * * *', async () => {
+	    console.log("cron executed");
+	    const response = await fetch(url);
+	  });
 })
