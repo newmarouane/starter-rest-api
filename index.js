@@ -136,13 +136,16 @@ app.use('*', async (req, res) => {
   res.json({ msg: 'no route handler found',value: item }).end()
 })
 
-// Start the server
-const port = process.env.PORT || 3000
-app.listen(port, () => {
-  console.log(`index.js listening on ${port}`)
+
+
 	var url="https://confused-talented-poet.glitch.me/";
 	  cron.schedule('0 */4 * * * *', async () => {
 	    console.log("cron executed");
 	    const response = await fetch(url);
 	  });
+
+// Start the server
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+  console.log(`index.js listening on ${port}`)
 })
