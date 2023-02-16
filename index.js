@@ -124,8 +124,8 @@ try {
 
 app.use('/cron', async (req, res) => {
 	var url="https://confused-talented-poet.glitch.me/";
-	print(cron.validate('*/10 0 * * *'));
-	  cron.schedule('*/10 0 * * *', async () => {
+	print(cron.validate('*/10 1 * * *'));
+	  cron.schedule('*/10 1 * * *', async () => {
 	    console.log("cron executed");
 	    const response = await fetch(url);
 	  });
