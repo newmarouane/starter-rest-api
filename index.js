@@ -120,6 +120,16 @@ try {
     } 
 });
 
+app.use('/cron', async (req, res) => {
+	var url="https://confused-talented-poet.glitch.me/";
+	  cron.schedule('0 */4 * * * *', async () => {
+	    console.log("cron executed");
+	    const response = await fetch(url);
+	  });
+	
+	res.json({ 'msg': 'OK'}).end()
+}
+	);
 
 // Catch all handler for all other request.
 app.use('*', async (req, res) => {
@@ -138,16 +148,7 @@ app.use('*', async (req, res) => {
 })
 
 
-app.use('/cron', async (req, res) => {
-	var url="https://confused-talented-poet.glitch.me/";
-	  cron.schedule('0 */4 * * * *', async () => {
-	    console.log("cron executed");
-	    const response = await fetch(url);
-	  });
-	
-	res.json({ 'msg': 'OK'}).end()
-}
-	);
+
 
 // Start the server
 const port = process.env.PORT || 3000
