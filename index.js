@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const db = require('@cyclic.sh/dynamodb')
-const puppeteer = require('puppeteer')
+//const puppeteer = require('puppeteer')
 const fetch = require("node-fetch");
 var cron = require('node-cron');
 
@@ -64,7 +64,7 @@ app.get('/:col', async (req, res) => {
 })
 
 
-	
+/*	
 app.get('/job', async (req, res) => {
 try {
   let browser;
@@ -119,6 +119,8 @@ try {
        // await browser.close();
     } 
 });
+/*
+
 
 app.use('/cron', async (req, res) => {
 	var url="https://confused-talented-poet.glitch.me/";
