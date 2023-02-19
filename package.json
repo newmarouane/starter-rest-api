@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node index.js",
     "repl": "node",
- "build": "npm cache clear && npm install && npm run build"
+ "build": "npm run build"
     
   },
   "keywords": [],
