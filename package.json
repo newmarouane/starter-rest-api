@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "env-cmd nodemon index.js",
     "repl": "env-cmd node",
- "build": "webpack --config webpack.conf.js",
+ "build": "webpack --config webpack.conf.js"
     
   },
   "keywords": [],
