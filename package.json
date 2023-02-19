@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node index.js",
-    "repl": "node",
- "build": "npm run build"
+    "repl": "node"
     
   },
   "keywords": [],
