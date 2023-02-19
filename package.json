@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "env-cmd nodemon index.js",
     "repl": "env-cmd node"
+ "build": "webpack --config webpack.conf.js",
+    
   },
   "keywords": [],
   "author": "Kam Lasater <kam.lasater@cyclic.sh>",
