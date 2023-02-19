@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "env-cmd nodemon index.js",
-    "repl": "env-cmd node",
+    "dev": "node index.js",
+    "repl": "node",
  "build": "npm run build"
     
   },
@@ -13,14 +13,11 @@
   "author": "Kam Lasater <kam.lasater@cyclic.sh>",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.16",
-    "puppeteer": "^18.0.5"
   },
   "dependencies": {
-    "@cyclic.sh/dynamodb": "^0.0.33",
-    "env-cmd": "^10.1.0",
     "express": "^4.18.1",
     "node-cron": "^3.0.2",
-    "node-fetch": "^2.0.0"    
+    "node-fetch": "^2.0.0",
+    "puppeteer": "^18.0.5" 
   }
 }
