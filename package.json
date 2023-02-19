@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "env-cmd nodemon index.js",
     "repl": "env-cmd node",
- "build": "env-cmd npm run build"
+ "build": "npm run build"
     
   },
   "keywords": [],
